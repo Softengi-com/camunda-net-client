@@ -7,6 +7,12 @@ namespace CamundaCLI
 	[Verb("deploy", HelpText = "Deploy files.")]
 	public class DeployOptions
 	{
+		[Option('n', "name", Required = true, HelpText = "Deployment name.")]
+		public string Name { get; set; }
+
+		[Option('s', "source", HelpText = "Deployment source.")]
+		public string Source { get; set; }
+
 		[Option('f', "files", Required = true, HelpText = "Files to deploy.")]
 		public IEnumerable<string> Files { get; set; }
 
@@ -18,6 +24,9 @@ namespace CamundaCLI
 
 		[Option('p', "password", Required = true, HelpText = "User password.")]
 		public string Password { get; set; }
+
+		[Option('t', "tenant", HelpText = "Tenant ID.")]
+		public string TenantID { get; set; }
 
 		[Option(Default = true, HelpText = "Prints all messages to standard output.")]
 		public bool Verbose { get; set; }

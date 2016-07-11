@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using CommandLine;
 
@@ -16,12 +17,29 @@ namespace CamundaCLI
 		static private void Deploy(DeployOptions options)
 		{
 			var cn = new Camunda.Client.CamundaConnection(options.CamundaUri);
+			if (!string.IsNullOrEmpty(options.TenantID))
+				cn.TentantID = options.TenantID;
 			cn.Authenticate(options.User, options.Password);
 
-			foreach (var fileName in options.Files)
+			cn.GetTask(Guid.Parse("dde93ad5-4518-11e6-a4a0-00155dc89912"));
+
+			var result = cn.Deploy(options.Name, options.Source, options.Files.ToArray());
+			Console.WriteLine($@"
+Deployed:
+  ID			 : {result.ID}
+  Name			 : {result.Name}
+  Source		 : {result.Source}
+  Deployment time: {result.DeploymentTime}
+  Tentant ID     : {result.TenantID}
+");
+			if (result.Links != null)
 			{
-				// TODO:
+				Console.WriteLine("Links:");
+				foreach (var link in result.Links)
+					Console.WriteLine($"  Method: {link.Method}; Rel: {link.Rel}; Href: {link.Href};");
 			}
+			else
+				Console.WriteLine("Links: none.");
 		}
 	}
 }

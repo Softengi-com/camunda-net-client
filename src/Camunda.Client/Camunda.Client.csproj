@@ -50,6 +50,8 @@
     <Compile Include="Types\AuthenticationResponse.cs" />
     <Compile Include="CamundaConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\DeploymentCreateResponse.cs" />
+    <Compile Include="Types\DeploymentLink.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
