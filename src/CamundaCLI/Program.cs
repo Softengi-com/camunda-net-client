@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 using CommandLine;
@@ -23,12 +24,17 @@ namespace CamundaCLI
 
 			cn.GetTask(Guid.Parse("dde93ad5-4518-11e6-a4a0-00155dc89912"));
 
-			var result = cn.Deploy(options.Name, options.Source, options.Files.ToArray());
+			var allFiles = options
+				.Files
+				.SelectMany(f => Directory.Exists(f) ? Directory.EnumerateFiles(f) : new[] {f})
+				.ToArray();
+
+			var result = cn.Deploy(options.Name, options.Source, allFiles);
 			Console.WriteLine($@"
 Deployed:
-  ID			 : {result.ID}
-  Name			 : {result.Name}
-  Source		 : {result.Source}
+  ID             : {result.ID}
+  Name           : {result.Name}
+  Source         : {result.Source}
   Deployment time: {result.DeploymentTime}
   Tentant ID     : {result.TenantID}
 ");
