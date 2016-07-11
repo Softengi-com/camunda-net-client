@@ -9,5 +9,5 @@ Anyway, it contains useful code snippets for anyone who wants to integrate with 
 The following is an example of how to create a deployment at Camunda server:
 ```
 CamundaCLI.exe deploy -n "Sample deployment" -c http://camunda.deployment.yours/api/ -u demo -p demo -f test.bpmn startForm.html
-CamundaCLI.exe deploy -n "Sample deployment" -c http://camunda.deployment.yours/api/ -u demo -p demo -f directoryWithFiles
+CamundaCLI.exe deploy -n "Sample deployment" -s "My deployment source" -c http://camunda.deployment.yours/api/ -u demo -p demo -f directoryWithFiles
 ```
